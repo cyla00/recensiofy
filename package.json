@@ -1,0 +1,30 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxtjs/tailwindcss": "^6.8.0",
+    "@types/node": "^18.16.19",
+    "nuxt": "^3.6.2"
+  },
+  "dependencies": {
+    "@webzlodimir/vue-avatar": "^0.0.8",
+    "base-64": "^1.0.0",
+    "crypto-js": "^4.1.1",
+    "formidable": "^3.5.0",
+    "fs-extra": "^11.1.1",
+    "jsonwebtoken": "^9.0.1",
+    "jwt-decode": "^3.1.2",
+    "mongoose": "^7.3.4",
+    "nodemailer": "^6.9.3",
+    "stripe": "^12.13.0",
+    "uuid": "^9.0.0"
+  }
+}
