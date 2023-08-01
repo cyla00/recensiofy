@@ -38,16 +38,6 @@ onBeforeMount(async () => {
     }
 })
 
-const Show = ref<boolean>(false)
-const ErrMsg = ref<string>('')
-const SuccMsg = ref<string>('')
-
-const loading = ref<boolean>(false)
-
-const checkout = async () => {
-    
-}
-
 </script>
 
 <template>
@@ -59,7 +49,7 @@ const checkout = async () => {
         <div class="my-auto">
             <NuxtLink class="mr-5 m-auto capitalize desktop-btn duration-300" to="/">home</NuxtLink>
             <NuxtLink class="mr-5 m-auto capitalize desktop-btn duration-300" to="/docs">Usage</NuxtLink>
-            <NuxtLink class="mr-5 duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-blue rounded-full text-c-light" to="/manage-account"><span class="max-xl:hidden"><i class='bx bx-cog'></i> Manage</span><span class="xl:hidden"><i class='bx bx-log-in-circle bx-sm'></i></span></NuxtLink>
+            <NuxtLink class="mr-5 duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-blue rounded-full text-c-light" to="/connection"> Connect</NuxtLink>
             <a :href="discordLink" target="_blank" class=""><i class='bx bxl-discord-alt bx-sm border-l border-b-c-blight p-2 duration-300 desktop-btn'></i></a>
         </div>
     </header>
@@ -83,7 +73,7 @@ const checkout = async () => {
                             <div class="m-auto flex flex-col text-center mt-20">
                                 <a class="m-auto mx-5 capitalize my-5 font-semibold" href="/">home</a>
                                 <a class="m-auto mx-5 capitalize my-5 font-semibold" href="/docs">Usage</a>
-                                <a class="my-5 duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-green rounded-full text-c-light" href="/manage-account"><i class='bx bx-cog'></i> Manage</a>
+                                <a class="my-5 duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-blue rounded-full text-c-light" href="/connection"> Connect</a>
                                 <a :href="discordLink" target="_blank" class="my-5"><i class='bx bxl-discord-alt mx-5 bx-lg p-2 duration-300 desktop-btn'></i></a>
                             </div>
                         </div>

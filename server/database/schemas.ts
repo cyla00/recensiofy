@@ -2,6 +2,7 @@ import { Schema } from 'mongoose'
 
 export const UserSchema = new Schema({
     id: String,
+    apiKey: String,
     timezone: String,
     ip: String,
     email: String,
@@ -16,7 +17,6 @@ export const UserSchema = new Schema({
 
 export const CampaignSchema = new Schema({
     id: String,
-    apiKey: String,
     userId: String,
     location: String,
     organization: String,
@@ -30,10 +30,10 @@ export const CampaignSchema = new Schema({
     tiktokUrl: String,
     linkedInUrl: String,
     twitterUrl: String,
-    verifiedCampaign: Boolean,
+    // verifiedCampaign: Boolean,
     createdAt: String,
     modifiedAt: String,
-    visible: Boolean,
+    // visible: Boolean,
 })
 
 export const ReviewSchema = new Schema({

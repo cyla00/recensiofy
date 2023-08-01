@@ -68,6 +68,7 @@ export default defineEventHandler(async (event) => {
 
         await users.create({
             id: uuidv4(),
+            apiKey: `api_key${uuidv4()}`,
             timezone: body.timezone,
             ip: body.ip,
             email: body.email,
