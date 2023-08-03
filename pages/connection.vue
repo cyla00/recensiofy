@@ -13,7 +13,8 @@ useHead({
 })
 
 definePageMeta({
-  layout: false,
+    layout: false,
+    middleware: ['is-connected-check'],
 })
 
 
@@ -59,45 +60,45 @@ const connection = async () => {
 </script>
 
 <template>
-    <main class="flex justify-center h-screen text-c-dark">
+    <main class="flex justify-center h-screen text-c-dark text-xs">
 
         <Popup v-model:Show="Show" v-model:ErrMsg="ErrMsg" v-model:SuccMsg="SuccMsg"/>
 
         <Transition>
         <div class="m-auto">
             <div class="">
-                <NuxtLink to="/"><img class="w-32 m-auto mb-5 desktop-btn duration-300" src="/assets/logo-dark.png" alt=""></NuxtLink>
+                <NuxtLink to="/"><img class="w-20 m-auto mb-5 desktop-btn duration-300" src="/assets/logo-dark.png" alt=""></NuxtLink>
             </div>
 
             <div class="back-shadow p-10 rounded-xl max-md:px-5 max-md:w-4/5 m-auto w-forms">
                 <div class="my-10">
-                    <h3 class="text-2xl font-bold capitalize">sign up to start your campaigns!</h3>
+                    <h3 class="text-xl font-bold capitalize">sign up to start your campaigns!</h3>
                 </div>
                    
                 <div class="flex flex-col my-5">
-                    <label class="text-sm capitalize my-2 font-semibold" for="email">email</label>
+                    <label class="capitalize my-2 font-semibold" for="email">email</label>
                     <input 
-                        class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-md rounded-md" 
-                        type="text" id="email" name="email" v-model="email" spellcheck="false">
+                        class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 rounded-md text-sm font-semibold" 
+                        type="text" v-model="email" spellcheck="false">
                 </div>
 
                 <div class="flex flex-col my-5">
                     <div class="flex flex-row">
-                        <label class="text-sm capitalize my-2 font-semibold" for="password">password</label>
+                        <label class="capitalize my-2 font-semibold" for="password">password</label>
                         <div class="m-auto"></div>
-                        <NuxtLink to="/password-recovery/" class="link-effect text-c-blue text-xs font-semibold duration-300 m-auto mr-0">
+                        <NuxtLink to="/password-recovery/" class="link-effect text-c-blue font-semibold duration-300 m-auto mr-0">
                             forgot your password?
                         </NuxtLink>
                     </div>
                     
                     <input 
-                        class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-md rounded-md" 
-                        type="password" id="password" name="password" v-model="password" spellcheck="false">
+                        class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md" 
+                        type="password" v-model="password" spellcheck="false">
                 </div>
 
                 <div class="m-auto text-center mt-20 mb-10">
                     <button 
-                        class="duration-300 desktop-btn bg-c-green py-2 px-10 rounded-tl-xl rounded-br-xl text-xl text-c-light font-bold max-md:w-full capitalize"
+                        class="duration-300 desktop-btn bg-c-green py-2 px-10 rounded-tl-xl rounded-br-xl text-base text-c-light font-bold max-md:w-full capitalize"
                         @click="connection">
                         connect
                     </button>

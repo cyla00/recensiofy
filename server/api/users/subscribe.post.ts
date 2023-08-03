@@ -8,7 +8,6 @@ import { mailer } from '../../emailClient.ts'
 import { v4 as uuidv4 } from 'uuid'
 import { sha256toBase64 } from '../../auth/hasher.ts'
 import { emailValidator } from '../../emailValidator.ts'
-import jwt_decode from 'jwt-decode'
 
 export default defineEventHandler(async (event) => {
 

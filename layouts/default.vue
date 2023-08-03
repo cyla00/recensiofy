@@ -38,6 +38,15 @@ onBeforeMount(async () => {
     }
 })
 
+const navConnection = () => {
+    navigateTo('/connection')
+}
+
+const navDash = () => {
+    navigateTo('/dashboard')
+    mobileNav.value = !mobileNav.value
+}
+
 </script>
 
 <template>
@@ -49,7 +58,9 @@ onBeforeMount(async () => {
         <div class="my-auto">
             <NuxtLink class="mr-5 m-auto capitalize desktop-btn duration-300" to="/">home</NuxtLink>
             <NuxtLink class="mr-5 m-auto capitalize desktop-btn duration-300" to="/docs">Usage</NuxtLink>
-            <NuxtLink class="mr-5 duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-blue rounded-full text-c-light" to="/connection"> Connect</NuxtLink>
+            <NuxtLink class="mr-5 duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-blue rounded-full text-c-light" to="/connection" v-if="!isLogged"> Connect</NuxtLink>
+            <NuxtLink class="mr-5 duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-blue rounded-full text-c-light" to="/dashboard" v-if="isLogged"> Dashboard</NuxtLink>
+            <NuxtLink class="mr-5 duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-red rounded-full text-c-light hover:cursor-pointer" @click="logout" v-if="isLogged"> Disconnect</NuxtLink>
             <a :href="discordLink" target="_blank" class=""><i class='bx bxl-discord-alt bx-sm border-l border-b-c-blight p-2 duration-300 desktop-btn'></i></a>
         </div>
     </header>
@@ -73,7 +84,9 @@ onBeforeMount(async () => {
                             <div class="m-auto flex flex-col text-center mt-20">
                                 <a class="m-auto mx-5 capitalize my-5 font-semibold" href="/">home</a>
                                 <a class="m-auto mx-5 capitalize my-5 font-semibold" href="/docs">Usage</a>
-                                <a class="my-5 duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-blue rounded-full text-c-light" href="/connection"> Connect</a>
+                                <a class="duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-blue rounded-full text-c-light" @click="navConnection" v-if="!isLogged"> Connect</a>
+                                <a class="my-5 duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-blue rounded-full text-c-light" @click="navDash" v-if="isLogged"> Dashboard</a>
+                                <a class="duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-red rounded-full text-c-light" @click="logout" v-if="isLogged"> Disconnect</a>
                                 <a :href="discordLink" target="_blank" class="my-5"><i class='bx bxl-discord-alt mx-5 bx-lg p-2 duration-300 desktop-btn'></i></a>
                             </div>
                         </div>

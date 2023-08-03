@@ -89,7 +89,7 @@ const checkout = async () => {
                             </div>
 
                             <input
-                                class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-md rounded-md"
+                                class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
                                 type="text" v-model="email" spellcheck="false">
                         </div>
 
@@ -98,12 +98,11 @@ const checkout = async () => {
                             <div class="flex flex-row">
                                 <label class="text-xs capitalize my-2 font-semibold" for="password">password *</label>
                             </div>
-
+ 
                             <input
-                                class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-md rounded-md"
+                                class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
                                 type="password" id="password" name="password" v-model="password" spellcheck="false">
-                            <p class="text-c-light-grey font-semibold">Use a secure password! at least 6 characters,
-                                uppercase, lowercase and numbers</p>
+                            <p class="text-c-light-grey font-semibold">Use a secure password! at least 6 characters, uppercase, lowercase and numbers</p>
                         </div>
 
                         <div class="flex flex-col my-5 text-xs">
@@ -112,7 +111,7 @@ const checkout = async () => {
                             </div>
 
                             <input
-                                class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-md rounded-md"
+                                class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
                                 type="password" id="password" name="password" v-model="repeat_password" spellcheck="false">
                         </div>
                     </div>
