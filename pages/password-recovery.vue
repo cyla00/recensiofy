@@ -60,7 +60,7 @@ const passRecover = async () => {
 
                 <div class="m-auto text-center mt-20 mb-10">
                     <button 
-                        class="duration-300 desktop-btn bg-c-green py-2 px-10 rounded-tl-xl rounded-br-xl text-base text-c-light font-bold max-md:w-full capitalize"
+                        class="duration-300 desktop-btn bg-c-green py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold max-md:w-full capitalize"
                         @click="passRecover">
                         continue
                     </button>

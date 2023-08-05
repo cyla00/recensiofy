@@ -65,12 +65,9 @@ const connection = async () => {
         <Popup v-model:Show="Show" v-model:ErrMsg="ErrMsg" v-model:SuccMsg="SuccMsg"/>
 
         <Transition>
-        <div class="m-auto">
-            <div class="">
-                <NuxtLink to="/"><img class="w-20 m-auto mb-5 desktop-btn duration-300" src="/assets/logo-dark.png" alt=""></NuxtLink>
-            </div>
+        <div class="m-auto flex max-xl:flex-col">
 
-            <div class="back-shadow p-10 rounded-xl max-md:px-5 max-md:w-4/5 m-auto w-forms">
+            <div class="back-shadow p-7 rounded-xl max-md:px-5 max-md:w-4/5 m-auto w-forms">
                 <div class="my-10">
                     <h3 class="text-xl font-bold capitalize">sign up to start your campaigns!</h3>
                 </div>
@@ -98,7 +95,7 @@ const connection = async () => {
 
                 <div class="m-auto text-center mt-20 mb-10">
                     <button 
-                        class="duration-300 desktop-btn bg-c-green py-2 px-10 rounded-tl-xl rounded-br-xl text-base text-c-light font-bold max-md:w-full capitalize"
+                        class="duration-300 desktop-btn bg-c-green py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold max-md:w-full capitalize"
                         @click="connection">
                         connect
                     </button>
@@ -107,6 +104,44 @@ const connection = async () => {
                     <p class="capitalize text-c-dark">don’t have an account? <NuxtLink to="/" class="link-effect text-c-blue duration-300">Start here!</NuxtLink></p>
                 </div>
             </div>
+
+
+            <div class="w-96 max-xl:w-4/5 m-auto ml-5 max-xl:mx-auto">
+                <div class="my-5 max-xl:hidden">
+                    <NuxtLink to="/"><img class="w-24 max-xl:m-auto desktop-btn duration-300" src="~/assets/logo-dark.png" alt=""></NuxtLink>
+                </div>
+                    
+                <div class="text-c-dark my-10 max-md:my-3">
+                    <div class="">
+                        <h4 class="capitalize font-bold text-md"><i class='bx bx-check-circle text-c-green'></i> join the platform</h4>
+                        <p class="max-md:text-xs p-5 font-medium text-sm max-md:py-2 pt-0">
+                            The easies joining process, 3 clicks away to start collecting reviews.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-c-dark my-10 max-md:my-3">
+                    <div class="">
+                        <h4 class="capitalize font-bold text-md"><i class='bx bx-check-circle text-c-green'></i> create campaigns</h4>
+                        <p class="max-md:text-xs p-5 font-medium text-sm max-md:py-2 pt-0">
+                            Create a campaign and connect to our API to showcase reviews
+                            on your websites, software and applications.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-c-dark my-10 max-md:my-3">
+                    <div class="">
+                        <h4 class="capitalize font-bold text-md"><i class='bx bx-check-circle text-c-green'></i> collect reviews</h4>
+                        <p class="max-md:text-xs p-5 font-medium text-sm max-md:py-2 pt-0">
+                            Let people witness your social proof and trust by reading your reviews.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
         </Transition>
     </main>

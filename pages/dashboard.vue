@@ -17,7 +17,7 @@ definePageMeta({
 
 <template>
     <main>
-        dash
+        <DashboardModUserData/>
     </main>
 </template>
 

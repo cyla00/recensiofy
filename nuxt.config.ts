@@ -51,7 +51,12 @@ export default defineNuxtConfig({
           ],
         },
         pageTransition: { name: 'page', mode: 'out-in' },
+        
     },
+    components: [
+        { path: '~/components/dashboard', prefix: 'Dashboard' },
+        '~/components',
+    ],
     modules: [
         '@nuxtjs/tailwindcss',
     ],

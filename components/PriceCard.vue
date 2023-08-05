@@ -117,15 +117,14 @@ const checkout = async () => {
                     </div>
                     <div class="text-xs">
                         <button
-                            class="duration-300 desktop-btn bg-c-green py-2 px-10 my-3 rounded-tl-xl rounded-br-xl text-base text-c-light font-bold max-md:w-full capitalize"
+                            class="duration-300 desktop-btn bg-c-green py-2 px-10 my-3 rounded-tl-xl rounded-br-xl text-c-light font-bold max-md:w-full capitalize"
                             @click="checkout">
                             Continue!
                         </button>
+                        <p class="text-xs text-c-light-grey font-semibold my-2">By proceeding, I accept the terms & condition and the privacy policy of RecensioFy</p>
                         <div v-if="loading">
                             <i class='bx bx-loader-circle bx-spin bx-rotate-270 bx-sm'></i>
                         </div>
-                        <p class="font-semibold text-c-light-grey">Future features & updates will be introduced &
-                            included.</p>
                     </div>
                 </div>
             </div>
