@@ -16,8 +16,8 @@ definePageMeta({
 </script>
 
 <template>
-    <main>
-        <DashboardModUserData/>
+    <main class="py-10">
+        <DashboardUserData/>
     </main>
 </template>
 
