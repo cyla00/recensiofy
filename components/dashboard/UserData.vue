@@ -9,11 +9,11 @@ const newPass = ref<string>('')
 const showBlur = ref<boolean>(true)
 const newEmail = ref<string>('')
 
-const apiKey = ref<string>('apikeyaaaaaaaaaaaaaaaaaaasssss')
-const zone = ref<string>('Europe/paris')
-const email = ref<string>('someemmail@mail.com')
+const apiKey = ref<string>('')
+const zone = ref<string>('')
+const email = ref<string>('')
 
-const refKey = ref()
+const refKey = ref('')
 
 const blur = () => {
     showBlur.value = !showBlur.value
@@ -27,14 +27,77 @@ const copyKey = async () => {
 
 const updateEmail = async () => {
 
+    const body = {
+        email: newEmail.value
+    }
+
+    await $fetch('/api/users/update-email', {method: 'put', body: body, headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+    }}).then((res) => {
+        Show.value = true
+        SuccMsg.value = res.SuccMsg
+        setTimeout(() => {
+            return window.location.reload()
+        }, 1500)
+    }).catch((e) => {
+        Show.value = true
+        ErrMsg.value = e.statusMessage
+    })
 }
 
 const updatePassword = async () => {
 
+    const body = {
+        currentPass: currentPass.value,
+        newPass: newPass.value,
+    }
+
+    await $fetch('/api/users/update-password', {method: 'put', body: body, headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+    }}).then((res) => {
+        Show.value = true
+        SuccMsg.value = res.SuccMsg
+        setTimeout(() => {
+            return window.location.reload()
+        }, 1500)
+    }).catch((e) => {
+        Show.value = true
+        ErrMsg.value = e.statusMessage
+    })
+}
+
+const regenApiKey = async () => {
+    
+    const verif = confirm('proceed to regenerate your API key')
+
+    if(verif){
+        await $fetch('/api/users/regen-api-key', {method: 'put', headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }}).then((res) => {
+            Show.value = true
+            SuccMsg.value = res.SuccMsg
+            setTimeout(() => {
+                return window.location.reload()
+            }, 1500)
+        }).catch((e) => {
+            Show.value = true
+            ErrMsg.value = e.statusMessage
+        })
+    }
 }
 
 onBeforeMount(async () => {
-    //fetch user data from api
+    await $fetch('/api/users/fetch-data', {method: 'post', headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+    }}).then((res) => {
+        apiKey.value = res.apiKey
+        zone.value = res.timezone
+        email.value = res.email
+    }).catch((e) => {
+        apiKey.value = 'not available'
+        zone.value = 'not available'
+        email.value = 'not available'
+    })
 })
 
 </script>
@@ -48,8 +111,9 @@ onBeforeMount(async () => {
             <div class="flex">
                 <input
                     class="py-2 px-5 border w-full truncate duration-300 rounded-l-md" type="text" v-model="apiKey" spellcheck="false" ref="refKey" readonly="true" :class="{'blur-text': showBlur}">
-                <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="blur"><i class='bx bx-low-vision'></i></button>
-                <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300 rounded-r-xl" @click="copyKey"><i class='bx bx-copy-alt'></i></button>
+                <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="blur" title="hide/show"><i class='bx bx-low-vision'></i></button>
+                <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="copyKey" title="copy key"><i class='bx bx-copy-alt'></i></button>
+                <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300 rounded-r-xl" @click="regenApiKey" title="regenerate key"><i class='bx bx-revision'></i></button>
             </div>
         </div>
 
@@ -78,18 +142,18 @@ onBeforeMount(async () => {
             <h1 class="font-semibold text-base">Modify user information</h1>
             <div class="flex flex-col my-5">
                 <div class="flex flex-row">
-                    <label class="text-xs capitalize my-2 font-semibold" for="password">Modify email</label>
+                    <label class="text-xs capitalize my-2 font-semibold">Modify email</label>
                 </div>
 
                 <input
                     class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                    type="text" v-model="newEmail" spellcheck="false" placeholder="your.new@email.com">
+                    type="text" v-model="newEmail" spellcheck="false" placeholder="new@email.com">
             </div>
 
             <div class="text-xs">
                 <button
                     class="duration-300 desktop-btn bg-c-green py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold w-full"
-                    @click="updateEmail">
+                    @click="updateEmail" title="save new email">
                     Update email
                 </button>
             </div>
@@ -98,7 +162,7 @@ onBeforeMount(async () => {
         <div class="text-xs">
             <div class="flex flex-col my-5">
                 <div class="flex flex-row">
-                    <label class="text-xs capitalize my-2 font-semibold" for="password">Current password</label>
+                    <label class="text-xs capitalize my-2 font-semibold">Current password *</label>
                 </div>
 
                 <input
@@ -108,7 +172,7 @@ onBeforeMount(async () => {
 
             <div class="flex flex-col my-5">
                 <div class="flex flex-row">
-                    <label class="text-xs capitalize my-2 font-semibold" for="password">New password</label>
+                    <label class="text-xs capitalize my-2 font-semibold">New password</label>
                 </div>
 
                 <input
@@ -120,7 +184,7 @@ onBeforeMount(async () => {
             <div class="text-xs">
                 <button
                     class="duration-300 desktop-btn bg-c-green py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold w-full"
-                    @click="updatePassword">
+                    @click="updatePassword" title="save new password">
                     Update password
                 </button>
             </div>

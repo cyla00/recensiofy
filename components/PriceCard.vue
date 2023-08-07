@@ -101,7 +101,7 @@ const checkout = async () => {
  
                             <input
                                 class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                                type="password" id="password" name="password" v-model="password" spellcheck="false">
+                                type="password" v-model="password" spellcheck="false">
                             <p class="text-c-light-grey font-semibold">Use a secure password! at least 6 characters, uppercase, lowercase and numbers</p>
                         </div>
 
@@ -112,13 +112,13 @@ const checkout = async () => {
 
                             <input
                                 class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                                type="password" id="password" name="password" v-model="repeat_password" spellcheck="false">
+                                type="password" v-model="repeat_password" spellcheck="false">
                         </div>
                     </div>
                     <div class="text-xs">
                         <button
                             class="duration-300 desktop-btn bg-c-green py-2 px-10 my-3 rounded-tl-xl rounded-br-xl text-c-light font-bold max-md:w-full capitalize"
-                            @click="checkout">
+                            @click="checkout" title="proceed to checkout">
                             Continue!
                         </button>
                         <p class="text-xs text-c-light-grey font-semibold my-2">By proceeding, I accept the terms & condition and the privacy policy of RecensioFy</p>

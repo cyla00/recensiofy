@@ -61,7 +61,7 @@ const passRecover = async () => {
                 <div class="m-auto text-center mt-20 mb-10">
                     <button 
                         class="duration-300 desktop-btn bg-c-green py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold max-md:w-full capitalize"
-                        @click="passRecover">
+                        @click="passRecover" title="send recovery email">
                         continue
                     </button>
                     <div v-if="loading" class="mt-2">
