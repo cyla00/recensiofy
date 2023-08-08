@@ -107,10 +107,21 @@ onBeforeMount(async () => {
     <div class="w-96 bg-c-light back-shadow rounded-xl p-7 text-c-dark">
         <Popup v-model:Show="Show" v-model:ErrMsg="ErrMsg" v-model:SuccMsg="SuccMsg"/>
         <div>
+
+            <div class="text-xs mb-5 flex text-center">
+                <nuxtLink 
+                    to="/delete-account" 
+                    class="duration-300 desktop-btn bg-c-red py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold w-full">Delete account</nuxtLink>
+            </div>
+
             <h1 class="font-semibold text-base mb-3">API key</h1>
+
             <div class="flex">
-                <input
-                    class="py-2 px-5 border w-full truncate duration-300 rounded-l-md" type="text" v-model="apiKey" spellcheck="false" ref="refKey" readonly="true" :class="{'blur-text': showBlur}">
+                <div class="border rounded-l-md">
+                    <input
+                        class="py-2 px-5 w-full truncate duration-300 outline-none" type="text" v-model="apiKey" spellcheck="false" ref="refKey" readonly="true" :class="{'blur-text': showBlur}">
+                </div>
+                
                 <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="blur" title="hide/show"><i class='bx bx-low-vision'></i></button>
                 <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="copyKey" title="copy key"><i class='bx bx-copy-alt'></i></button>
                 <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300 rounded-r-xl" @click="regenApiKey" title="regenerate key"><i class='bx bx-revision'></i></button>
