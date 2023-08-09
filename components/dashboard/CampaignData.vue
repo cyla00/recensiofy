@@ -104,7 +104,7 @@ onBeforeMount(async () => {
 
 <template>
 
-    <div class="w-96 bg-c-light back-shadow rounded-xl p-7 text-c-dark m-auto max-xl:m-auto max-xl:w-4/5">
+    <div class="w-96 bg-c-light back-shadow rounded-xl p-7 text-c-dark m-auto max-xl:my-10 mx-10 max-xl:m-auto max-xl:w-4/5">
         <Popup v-model:Show="Show" v-model:ErrMsg="ErrMsg" v-model:SuccMsg="SuccMsg"/>
         <div>
 
@@ -114,7 +114,7 @@ onBeforeMount(async () => {
                     class="duration-300 desktop-btn bg-c-red py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold w-full">Delete account</nuxtLink>
             </div>
 
-            <h1 class="font-semibold text-base mb-3">API key <span class="text-c-light-grey text-xs">(keep it secret)</span></h1>
+            <h1 class="font-semibold text-base mb-3">CAMPAIGNS</h1>
 
             <div class="flex">
                 <div class="border rounded-l-md">
@@ -125,7 +125,6 @@ onBeforeMount(async () => {
                 <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="blur" title="hide/show"><i class='bx bx-low-vision'></i></button>
                 <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="copyKey" title="copy key"><i class='bx bx-copy-alt'></i></button>
                 <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300 rounded-r-xl" @click="regenApiKey" title="regenerate key"><i class='bx bx-revision'></i></button>
-
             </div>
         </div>
 

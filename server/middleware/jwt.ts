@@ -14,6 +14,11 @@ export default defineEventHandler(async (event) => {
 
             // USER
             '/api/users/jwt-check', // checks jwt on command
+            '/api/users/delete', // deletes account, campaigns and reviews
+            '/api/users/fetch-data', // fetches some user data
+            '/api/users/update-email', // modifies email
+            '/api/users/update-password', // modifies email
+            '/api/users/regen-api-key', // modifies email
 
         ]
 

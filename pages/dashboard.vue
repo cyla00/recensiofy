@@ -16,8 +16,18 @@ definePageMeta({
 </script>
 
 <template>
-    <main class="py-10">
-        <DashboardUserData/>
+    <main class="py-10 flex justify-center">
+        <div class="flex max-xl:flex-col">
+            <DashboardUserData/>
+            <DashboardCampaignData/>
+            <div class="mx-auto max-xl:mx-0 h-full grid grid-rows-2">
+                <DashboardReviewsData/>
+                <DashboardPaymentsData/>
+            </div>
+        </div>
+        
+        
+        
     </main>
 </template>
 

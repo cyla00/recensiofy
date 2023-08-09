@@ -30,10 +30,10 @@ export const CampaignSchema = new Schema({
     tiktokUrl: String,
     linkedInUrl: String,
     twitterUrl: String,
-    // verifiedCampaign: Boolean,
+    verifiedCampaign: Boolean,
     createdAt: String,
     modifiedAt: String,
-    // visible: Boolean,
+    visible: Boolean,
 })
 
 export const ReviewSchema = new Schema({
