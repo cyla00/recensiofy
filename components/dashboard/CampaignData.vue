@@ -4,199 +4,254 @@ const Show = ref<boolean>(false)
 const ErrMsg = ref<string>('')
 const SuccMsg = ref<string>('')
 
-const currentPass = ref<string>('')
-const newPass = ref<string>('')
-const showBlur = ref<boolean>(true)
-const newEmail = ref<string>('')
 
-const apiKey = ref<string>('')
-const zone = ref<string>('')
-const email = ref<string>('')
+const location = ref<string>('')
+const organization = ref<string>('')
+const description = ref<string>('')
+const category = ref<string>('')
+const campaignLogo = ref<string>('https://i.ibb.co/ZY5mmjg/default-campaing-logo.png')
+const averageRating = ref<number>(0)
+const websiteUrl = ref<string>('')
+const facebookUrl = ref<string>('')
+const instagramUrl = ref<string>('')
+const tiktokUrl = ref<string>('')
+const linkedInUrl = ref<string>('')
+const twitterUrl = ref<string>('')
+const verifiedCampaign = ref<boolean>(false)
 
-const refKey = ref('')
+const updateCampaign = () => {
 
-const blur = () => {
-    showBlur.value = !showBlur.value
 }
-
-const copyKey = async () => {
-    await navigator.clipboard.writeText(refKey.value.value)
-    Show.value = true
-    SuccMsg.value = 'Copied to clipboard'
-}
-
-const updateEmail = async () => {
-
-    const body = {
-        email: newEmail.value
-    }
-
-    await $fetch('/api/users/update-email', {method: 'put', body: body, headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-    }}).then((res) => {
-        Show.value = true
-        SuccMsg.value = res.SuccMsg
-        setTimeout(() => {
-            return window.location.reload()
-        }, 1500)
-    }).catch((e) => {
-        Show.value = true
-        ErrMsg.value = e.statusMessage
-    })
-}
-
-const updatePassword = async () => {
-
-    const body = {
-        currentPass: currentPass.value,
-        newPass: newPass.value,
-    }
-
-    await $fetch('/api/users/update-password', {method: 'put', body: body, headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-    }}).then((res) => {
-        Show.value = true
-        SuccMsg.value = res.SuccMsg
-        setTimeout(() => {
-            return window.location.reload()
-        }, 1500)
-    }).catch((e) => {
-        Show.value = true
-        ErrMsg.value = e.statusMessage
-    })
-}
-
-const regenApiKey = async () => {
-    
-    const verif = confirm('proceed to regenerate your API key')
-
-    if(verif){
-        await $fetch('/api/users/regen-api-key', {method: 'put', headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        }}).then((res) => {
-            Show.value = true
-            SuccMsg.value = res.SuccMsg
-            setTimeout(() => {
-                return window.location.reload()
-            }, 1500)
-        }).catch((e) => {
-            Show.value = true
-            ErrMsg.value = e.statusMessage
-        })
-    }
-}
-
-onBeforeMount(async () => {
-    await $fetch('/api/users/fetch-data', {method: 'post', headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-    }}).then((res) => {
-        apiKey.value = res.apiKey
-        zone.value = res.timezone
-        email.value = res.email
-    }).catch((e) => {
-        apiKey.value = 'not available'
-        zone.value = 'not available'
-        email.value = 'not available'
-    })
-})
-
 </script>
 
 <template>
 
-    <div class="w-96 bg-c-light back-shadow rounded-xl p-7 text-c-dark m-auto max-xl:my-10 mx-10 max-xl:m-auto max-xl:w-4/5">
+    <div class="w-96 bg-c-light back-shadow rounded-xl p-7 text-c-dark m-auto max-xl:my-10 mx-10 max-xl:m-auto max-xl:w-4/5 h-[820px] overflow-y-scroll">
         <Popup v-model:Show="Show" v-model:ErrMsg="ErrMsg" v-model:SuccMsg="SuccMsg"/>
         <div>
 
             <div class="text-xs mb-5 flex text-center">
                 <nuxtLink 
                     to="/delete-account" 
-                    class="duration-300 desktop-btn bg-c-red py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold w-full">Delete account</nuxtLink>
+                    class="duration-300 desktop-btn bg-c-red py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold w-full">Delete campaign</nuxtLink>
             </div>
 
-            <h1 class="font-semibold text-base mb-3">CAMPAIGNS</h1>
+            <div class="text-xs">
+                <p class="py-1 px-5 rounded-full border text-center">verified campaign</p>
+            </div>
 
-            <div class="flex">
-                <div class="border rounded-l-md">
-                    <input
-                        class="py-2 px-5 w-full truncate duration-300 outline-none" type="text" v-model="apiKey" spellcheck="false" ref="refKey" readonly="true" :class="{'blur-text': showBlur}">
+            <div class="my-5">
+                <img :src="campaignLogo" alt="campaigns logo" class="w-32 m-auto">
+            </div>
+
+            <div class="font-semibold flex text-c-dark">
+                <div class="flex flex-row m-auto">
+                    <i class='bx bxs-star bx-sm text-c-green my-auto'></i><p class="text-xl">{{ averageRating }}/5</p>
                 </div>
-                
-                <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="blur" title="hide/show"><i class='bx bx-low-vision'></i></button>
-                <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="copyKey" title="copy key"><i class='bx bx-copy-alt'></i></button>
-                <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300 rounded-r-xl" @click="regenApiKey" title="regenerate key"><i class='bx bx-revision'></i></button>
             </div>
+
         </div>
 
-        <div class="my-10">
-            <h1 class="font-semibold text-base mb-3">Credentials</h1>
+        <div class="text-xs my-10"> 
+ 
+            <h1 class="font-semibold text-base mb-3">Campaign information</h1>
 
-            <div class="text-xs font-semibold">
-                <div class="flex flex-row">
-                    <p class="my-auto w-full">Timezone: </p>
-                    <p class="text-c-light-grey">{{ zone }}</p>
-                </div>
-
-                <div class="flex flex-row my-3">
-                    <p class="my-auto w-full">Email: </p>
-                    <p class="text-c-light-grey">{{ email }}</p>
-                </div>
-
-                <div class="flex flex-row">
-                    <p class="my-auto w-full">Account status: </p>
-                    <p class="py-1 px-5 border rounded-full text-c-green border-c-green">verified</p>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <h1 class="font-semibold text-base">Modify user information</h1>
             <div class="flex flex-col my-5">
                 <div class="flex flex-row">
-                    <label class="text-xs capitalize my-2 font-semibold">Modify email</label>
+                    <label class="text-xs capitalize my-2 font-semibold">Organization</label>
                 </div>
 
                 <input
                     class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                    type="text" v-model="newEmail" spellcheck="false" placeholder="new@email.com">
+                    type="text" v-model="organization" spellcheck="false">
             </div>
+
+            <div class="flex flex-col my-5">
+                <label class="capitalize my-2 font-semibold">Sector</label>
+                <select 
+                    class="form-control duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-md rounded-md" 
+                    id="country" v-model="category">
+                    <option disabled value="">Sector</option>
+                    <option value="Animals & Pets">Animals & Pets</option>
+                    <option value="Beauty & Well-being">Beauty & Well-being</option>
+                    <option value="Business Services">Business Services</option>
+                    <option value="Construction & Manufacturing">Construction & Manufacturing</option>
+                    <option value="Education & Training">Education & Training</option>
+                    <option value="Electronics & Technology">Electronics & Technology</option>
+                    <option value="Events & Entertainment">Events & Entertainment</option>
+                    <option value="Food & Beverages">Food & Beverages</option>
+                    <option value="Health & Medical">Health & Medical</option>
+                    <option value="Hobbies & Crafts">Hobbies & Crafts</option>
+                    <option value="Home & Garden">Home & Garden</option>
+                    <option value="Home Services">Home Services</option>
+                    <option value="Legal Services & Government">Legal Services & Government</option>
+                    <option value="Media & Publishing">Media & Publishing</option>
+                    <option value="Bank & Insurance">Bank & Insurance</option>
+                    <option value="Public & Local Services">Public & Local Services</option>
+                    <option value="Restaurants & Bars">Restaurants & Bars</option>
+                    <option value="Shopping & Fashion">Shopping & Fashion</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Travel & Vacation">Travel & Vacation</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Vehicles & Transportation">Vehicles & Transportation</option>
+                </select>
+            </div>
+
+            <div class="flex flex-col my-5">
+
+                <label class="capitalize my-2 font-semibold" for="email">country</label>
+
+                <select 
+                    class="form-control duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-md rounded-md " 
+                    id="country" v-model="location">
+                    <option disabled value="">Country</option>
+                    <option data-power-region="AUS" value="American Samoa">American Samoa</option>
+                    <option data-power-region="AUS" value="Argentina">Argentina</option>
+                    <option data-power-region="AUS" value="Australia">Australia</option>
+                    <option data-power-region="Europe" value="Austria">Austria</option>
+                    <option data-power-region="USA" value="Bangladesh">Bangladesh</option>
+                    <option data-power-region="Europe" value="Belgium">Belgium</option>
+                    <option data-power-region="USA" value="Brazil">Brazil</option>
+                    <option data-power-region="USA" value="British Virgin Islands">British Virgin Islands</option>
+                    <option data-power-region="USA" value="Cambodia">Cambodia</option>
+                    <option data-power-region="USA" value="Canada">Canada</option>
+                    <option data-power-region="AUS" value="China">China</option>
+                    <option data-power-region="AUS" value="Christmas Island">Christmas Island</option>
+                    <option data-power-region="Europe" value="Denmark">Denmark</option>
+                    <option data-power-region="Europe" value="Egypt">Egypt</option>
+                    <option data-power-region="AUS" value="Fiji">Fiji</option>
+                    <option data-power-region="Europe" value="Finland">Finland</option>
+                    <option data-power-region="Europe" value="France">France</option>
+                    <option data-power-region="Europe" value="French Polynesia">French Polynesia</option>
+                    <option data-power-region="Europe" value="Germany">Germany</option>
+                    <option data-power-region="Europe" value="Greece">Greece</option>
+                    <option data-power-region="UK" value="Guernsey">Guernsey</option>
+                    <option data-power-region="UK" value="Hong Kong">Hong Kong</option>
+                    <option data-power-region="Europe" value="Hungary">Hungary</option>
+                    <option data-power-region="Europe" value="Iceland">Iceland</option>
+                    <option data-power-region="Europe" value="India">India</option>
+                    <option data-power-region="Europe" value="Indonesia">Indonesia</option>
+                    <option data-power-region="UK" value="Ireland">Ireland</option>
+                    <option data-power-region="UK" value="Isle of Man">Isle of Man</option>
+                    <option data-power-region="Europe" value="Israel">Israel</option>
+                    <option data-power-region="Europe" value="Italy">Italy</option>
+                    <option data-power-region="USA" value="Japan">Japan</option>
+                    <option data-power-region="UK" value="Jersey">Jersey</option>
+                    <option data-power-region="Europe" value="Liechtenstein">Liechtenstein</option>
+                    <option data-power-region="Europe" value="Luxembourg">Luxembourg</option>
+                    <option data-power-region="UK" value="Macau">Macau</option>
+                    <option data-power-region="UK" value="Malaysia">Malaysia</option>
+                    <option data-power-region="UK" value="Malta">Malta</option>
+                    <option data-power-region="USA" value="Mexico">Mexico</option>
+                    <option data-power-region="USA" value="Micronesia">Micronesia</option>
+                    <option data-power-region="Europe" value="Monaco">Monaco</option>
+                    <option data-power-region="Europe" value="Mongolia">Mongolia</option>
+                    <option data-power-region="AUS" value="Nauru">Nauru</option>
+                    <option data-power-region="Europe" value="Nepal">Nepal</option>
+                    <option data-power-region="Europe" value="Netherlands">Netherlands</option>
+                    <option data-power-region="Europe" value="Netherlands Antilles">Netherlands Antilles</option>
+                    <option data-power-region="Europe" value="New Caledonia">New Caledonia</option>
+                    <option data-power-region="AUS" value="New Zealand">New Zealand</option>
+                    <option data-power-region="AUS" value="Norfolk Island">Norfolk Island</option>
+                    <option data-power-region="Europe" value="Norway">Norway</option>
+                    <option data-power-region="Europe" value="Pakistan">Pakistan</option>
+                    <option data-power-region="AUS" value="Papua New Guinea">Papua New Guinea</option>
+                    <option data-power-region="USA" value="Philippines">Philippines</option>
+                    <option data-power-region="Europe" value="Poland">Poland</option>
+                    <option data-power-region="Europe" value="Portugal">Portugal</option>
+                    <option data-power-region="UK" value="Qatar">Qatar</option>
+                    <option data-power-region="UK" value="Singapore">Singapore</option>
+                    <option data-power-region="AUS" value="Solomon Islands">Solomon Islands</option>
+                    <option data-power-region="Europe" value="South Africa">South Africa</option>
+                    <option data-power-region="Europe" value="South Korea">South Korea</option>
+                    <option data-power-region="Europe" value="Spain">Spain</option>
+                    <option data-power-region="Europe" value="Sweden">Sweden</option>
+                    <option data-power-region="Europe" value="Switzerland">Switzerland</option>
+                    <option data-power-region="USA" value="Taiwan">Taiwan</option>
+                    <option data-power-region="USA" value="Thailand">Thailand</option>
+                    <option data-power-region="Europe" value="Turkey">Turkey</option>
+                    <option data-power-region="UK" value="United Kingdom">United Kingdom</option>
+                    <option data-power-region="USA" value="United States">United States</option>
+                    <option data-power-region="AUS" value="Vanuatu">Vanuatu</option>
+                    <option data-power-region="Europe" value="Vatican City">Vatican City</option>
+                    <option data-power-region="Europe" value="Vietnam">Vietnam</option>
+                </select>
+            </div>
+
+            <div class="flex flex-col my-5">
+                <div class="flex flex-row">
+                    <label class="text-xs capitalize my-2 font-semibold">Description</label>
+                </div>
+
+                <textarea name="" id="" rows="5" class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md" v-model="description" spellcheck="false"></textarea>
+            </div>
+
+            <div class="flex flex-col my-5">
+                <div class="flex flex-row">
+                    <label class="text-xs capitalize my-2 font-semibold">Website</label>
+                </div>
+
+                <input
+                    class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
+                    type="text" v-model="websiteUrl" spellcheck="false">
+            </div>
+
+            <div class="flex flex-col my-5">
+                <div class="flex flex-row">
+                    <label class="text-xs capitalize my-2 font-semibold">Instagram</label>
+                </div>
+
+                <input
+                    class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
+                    type="text" v-model="instagramUrl" spellcheck="false">
+            </div>
+
+            <div class="flex flex-col my-5">
+                <div class="flex flex-row">
+                    <label class="text-xs capitalize my-2 font-semibold">Facebook</label>
+                </div>
+
+                <input
+                    class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
+                    type="text" v-model="facebookUrl" spellcheck="false">
+            </div>
+
+            <div class="flex flex-col my-5">
+                <div class="flex flex-row">
+                    <label class="text-xs capitalize my-2 font-semibold">Twitter</label>
+                </div>
+
+                <input
+                    class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
+                    type="text" v-model="twitterUrl" spellcheck="false">
+            </div>
+
+            <div class="flex flex-col my-5">
+                <div class="flex flex-row">
+                    <label class="text-xs capitalize my-2 font-semibold">Linkedin</label>
+                </div>
+
+                <input
+                    class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
+                    type="text" v-model="linkedInUrl" spellcheck="false">
+            </div>
+
+            <div class="flex flex-col my-5">
+                <div class="flex flex-row">
+                    <label class="text-xs capitalize my-2 font-semibold">TikTok</label>
+                </div>
+
+                <input
+                    class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
+                    type="text" v-model="tiktokUrl" spellcheck="false">
+            </div>
+            
 
             <div class="text-xs">
                 <button
                     class="duration-300 desktop-btn bg-c-green py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold w-full"
-                    @click="updateEmail" title="save new email">
-                    Update email
-                </button>
-            </div>
-        </div>
-
-        <div class="text-xs">
-            <div class="flex flex-col my-5">
-                <div class="flex flex-row">
-                    <label class="text-xs capitalize my-2 font-semibold">Current password *</label>
-                </div>
-
-                <input
-                    class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                    type="password" v-model="currentPass" spellcheck="false">
-            </div>
-
-            <div class="flex flex-col my-5">
-                <div class="flex flex-row">
-                    <label class="text-xs capitalize my-2 font-semibold">New password</label>
-                </div>
-
-                <input
-                    class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                    type="password" v-model="newPass" spellcheck="false">
-                <p class="text-c-light-grey font-semibold">Use a secure password! at least 6 characters, uppercase, lowercase and numbers</p>
-            </div>
-
-            <div class="text-xs">
-                <button
-                    class="duration-300 desktop-btn bg-c-green py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold w-full"
-                    @click="updatePassword" title="save new password">
-                    Update password
+                    @click="updateCampaign" title="save new password">
+                    Update campaign
                 </button>
             </div>
         </div>
@@ -208,5 +263,9 @@ onBeforeMount(async () => {
 <style scoped>
 .blur-text{
     filter: blur(3px);
+}
+
+textarea {
+  resize: none;
 }
 </style>

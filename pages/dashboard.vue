@@ -20,7 +20,7 @@ definePageMeta({
         <div class="flex max-xl:flex-col">
             <DashboardUserData/>
             <DashboardCampaignData/>
-            <div class="mx-auto max-xl:mx-0 h-full grid grid-rows-2">
+            <div class="mx-auto max-xl:mx-0 grid grid-rows-2 h-[820px]">
                 <DashboardReviewsData/>
                 <DashboardPaymentsData/>
             </div>

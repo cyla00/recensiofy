@@ -104,7 +104,7 @@ onBeforeMount(async () => {
 
 <template>
 
-    <div class="w-96 bg-c-light back-shadow rounded-xl p-7 text-c-dark m-auto max-xl:m-auto max-xl:w-4/5">
+    <div class="w-96 bg-c-light back-shadow rounded-xl p-7 text-c-dark m-auto max-xl:m-auto max-xl:w-4/5 h-[820px]">
         <Popup v-model:Show="Show" v-model:ErrMsg="ErrMsg" v-model:SuccMsg="SuccMsg"/>
         <div>
 
