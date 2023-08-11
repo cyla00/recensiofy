@@ -4,7 +4,7 @@ const Show = ref<boolean>(false)
 const ErrMsg = ref<string>('')
 const SuccMsg = ref<string>('')
 
-
+const campaignId = ref<string>('')
 const location = ref<string>('')
 const organization = ref<string>('')
 const description = ref<string>('')
@@ -17,10 +17,57 @@ const instagramUrl = ref<string>('')
 const tiktokUrl = ref<string>('')
 const linkedInUrl = ref<string>('')
 const twitterUrl = ref<string>('')
-const verifiedCampaign = ref<boolean>(false)
+// const verifiedCampaign = ref<boolean>(false)
 
-const updateCampaign = () => {
+onBeforeMount(async () => {
+    await $fetch('/api/campaigns/get-campaign', {method: 'post', headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+    }}).then((res) => {
+        campaignId.value = res.campaign.id
+        location.value = res.campaign.location
+        organization.value = res.campaign.organization
+        description.value = res.campaign.description
+        category.value = res.campaign.category
+        campaignLogo.value = res.campaign.campaignLogo
+        averageRating.value = res.campaign.averageRating
+        websiteUrl.value = res.campaign.websiteUrl
+        facebookUrl.value = res.campaign.facebookUrl
+        instagramUrl.value = res.campaign.instagramUrl
+        tiktokUrl.value = res.campaign.tiktokUrl
+        linkedInUrl.value = res.campaign.linkedInUrl
+        twitterUrl.value = res.campaign.twitterUrl
+    }).catch((e) => {
+        return
+    })
+})
 
+const updateCampaign = async () => {
+    const body = {
+        location: location.value,
+        organization: organization.value,
+        description: description.value,
+        category: category.value,
+        websiteUrl: websiteUrl.value,
+        facebookUrl: facebookUrl.value,
+        instagramUrl: instagramUrl.value,
+        tiktokUrl: tiktokUrl.value,
+        linkedInUrl: linkedInUrl.value,
+        twitterUrl: twitterUrl.value,
+        campaignLogo: campaignLogo.value,
+    }
+
+    await $fetch('/api/campaigns/create', {method: 'post', body: body, headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+    }}).then((res) => {
+        Show.value = true
+        SuccMsg.value = res.SuccMsg
+        setTimeout(() => {
+            return window.location.reload()
+        }, 1500)
+    }).catch((e) => {
+        Show.value = true
+        ErrMsg.value = e.statusMessage
+    })
 }
 </script>
 
@@ -32,13 +79,13 @@ const updateCampaign = () => {
 
             <div class="text-xs mb-5 flex text-center">
                 <nuxtLink 
-                    to="/delete-account" 
+                    :to="'/delete-campaign/' + campaignId" 
                     class="duration-300 desktop-btn bg-c-red py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold w-full">Delete campaign</nuxtLink>
             </div>
 
-            <div class="text-xs">
+            <!-- <div class="text-xs">
                 <p class="py-1 px-5 rounded-full border text-center">verified campaign</p>
-            </div>
+            </div> -->
 
             <div class="my-5">
                 <img :src="campaignLogo" alt="campaigns logo" class="w-32 m-auto">
@@ -58,16 +105,16 @@ const updateCampaign = () => {
 
             <div class="flex flex-col my-5">
                 <div class="flex flex-row">
-                    <label class="text-xs capitalize my-2 font-semibold">Organization</label>
+                    <label class="text-xs capitalize my-2 font-semibold">Organization *</label>
                 </div>
 
                 <input
                     class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                    type="text" v-model="organization" spellcheck="false">
+                    type="text" v-model="organization" spellcheck="false" maxlength="50">
             </div>
 
             <div class="flex flex-col my-5">
-                <label class="capitalize my-2 font-semibold">Sector</label>
+                <label class="capitalize my-2 font-semibold">Sector *</label>
                 <select 
                     class="form-control duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-md rounded-md" 
                     id="country" v-model="category">
@@ -99,7 +146,7 @@ const updateCampaign = () => {
 
             <div class="flex flex-col my-5">
 
-                <label class="capitalize my-2 font-semibold" for="email">country</label>
+                <label class="capitalize my-2 font-semibold" for="email">country *</label>
 
                 <select 
                     class="form-control duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-md rounded-md " 
@@ -180,10 +227,10 @@ const updateCampaign = () => {
 
             <div class="flex flex-col my-5">
                 <div class="flex flex-row">
-                    <label class="text-xs capitalize my-2 font-semibold">Description</label>
+                    <label class="text-xs capitalize my-2 font-semibold">Description *</label>
                 </div>
 
-                <textarea name="" id="" rows="5" class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md" v-model="description" spellcheck="false"></textarea>
+                <textarea maxlength="200" rows="5" class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md" v-model="description" spellcheck="false"></textarea>
             </div>
 
             <div class="flex flex-col my-5">
@@ -193,7 +240,7 @@ const updateCampaign = () => {
 
                 <input
                     class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                    type="text" v-model="websiteUrl" spellcheck="false">
+                    type="text" v-model="websiteUrl" spellcheck="false" placeholder="www.website.com">
             </div>
 
             <div class="flex flex-col my-5">
@@ -203,7 +250,7 @@ const updateCampaign = () => {
 
                 <input
                     class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                    type="text" v-model="instagramUrl" spellcheck="false">
+                    type="text" v-model="instagramUrl" spellcheck="false" placeholder="www.instagram.com">
             </div>
 
             <div class="flex flex-col my-5">
@@ -213,7 +260,7 @@ const updateCampaign = () => {
 
                 <input
                     class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                    type="text" v-model="facebookUrl" spellcheck="false">
+                    type="text" v-model="facebookUrl" spellcheck="false" placeholder="www.facebook.com">
             </div>
 
             <div class="flex flex-col my-5">
@@ -223,7 +270,7 @@ const updateCampaign = () => {
 
                 <input
                     class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                    type="text" v-model="twitterUrl" spellcheck="false">
+                    type="text" v-model="twitterUrl" spellcheck="false" placeholder="www.twitter.com">
             </div>
 
             <div class="flex flex-col my-5">
@@ -233,7 +280,7 @@ const updateCampaign = () => {
 
                 <input
                     class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                    type="text" v-model="linkedInUrl" spellcheck="false">
+                    type="text" v-model="linkedInUrl" spellcheck="false" placeholder="www.linkedin.com">
             </div>
 
             <div class="flex flex-col my-5">
@@ -243,7 +290,7 @@ const updateCampaign = () => {
 
                 <input
                     class="duration-300 border outline-none border-c-b-light focus:border-c-green py-2 px-5 text-sm rounded-md"
-                    type="text" v-model="tiktokUrl" spellcheck="false">
+                    type="text" v-model="tiktokUrl" spellcheck="false" placeholder="www.tiktok.com">
             </div>
             
 

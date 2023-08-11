@@ -17,24 +17,6 @@ definePageMeta({
     middleware: ['is-connected-check'],
 })
 
-
-onBeforeMount(async () => {
-    if(localStorage.getItem('token')){
-        const token = jwt_decode(localStorage.getItem('token'))
-
-        try{
-            await $fetch('/api/users/jwt-check', {method: 'post', headers: {
-                Authorization: `Beader ${localStorage.getItem('token')}`
-            }})
-
-            return window.location.href = '/dashboard'
-        }catch(e){
-            localStorage.removeItem('token')
-            return
-        }
-    }
-})
-
 const Show = ref<boolean>(false)
 const ErrMsg = ref<string>('')
 const SuccMsg = ref<string>('')
