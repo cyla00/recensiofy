@@ -77,7 +77,7 @@ const updateCampaign = async () => {
         <Popup v-model:Show="Show" v-model:ErrMsg="ErrMsg" v-model:SuccMsg="SuccMsg"/>
         <div>
 
-            <div class="text-xs mb-5 flex text-center">
+            <div class="text-xs mb-5 flex text-center" v-if="campaignId !== ''">
                 <nuxtLink 
                     :to="'/delete-campaign/' + campaignId" 
                     class="duration-300 desktop-btn bg-c-red py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold w-full">Delete campaign</nuxtLink>

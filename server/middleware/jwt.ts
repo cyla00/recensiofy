@@ -19,6 +19,10 @@ export default defineEventHandler(async (event) => {
             '/api/users/update-email', // modifies email
             '/api/users/update-password', // modifies email
             '/api/users/regen-api-key', // modifies email
+            '/api/users/fetch-payments', // modifies email
+            '/api/campaigns/create', // modifies email
+            '/api/campaigns/delete', // modifies email
+            '/api/campaigns/get-campaign', // modifies email
 
         ]
 

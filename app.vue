@@ -49,4 +49,17 @@ i {
 .link-effect:active, .desktop-btn:active{
     opacity: 100%;
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(to right bottom, #02df9c, #00cecd, #00b7fc, #0099ff, #096cff);
+}
+
 </style>
