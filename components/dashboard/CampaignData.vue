@@ -17,7 +17,7 @@ const instagramUrl = ref<string>('')
 const tiktokUrl = ref<string>('')
 const linkedInUrl = ref<string>('')
 const twitterUrl = ref<string>('')
-// const verifiedCampaign = ref<boolean>(false)
+const visible = ref<boolean>()
 
 onBeforeMount(async () => {
     await $fetch('/api/campaigns/get-campaign', {method: 'post', headers: {
@@ -36,6 +36,7 @@ onBeforeMount(async () => {
         tiktokUrl.value = res.campaign.tiktokUrl
         linkedInUrl.value = res.campaign.linkedInUrl
         twitterUrl.value = res.campaign.twitterUrl
+        visible.value = res.campaign.visible
     }).catch((e) => {
         return
     })
@@ -83,9 +84,10 @@ const updateCampaign = async () => {
                     class="duration-300 desktop-btn bg-c-red py-2 px-10 rounded-tl-xl rounded-br-xl text-c-light font-bold w-full">Delete campaign</nuxtLink>
             </div>
 
-            <!-- <div class="text-xs">
-                <p class="py-1 px-5 rounded-full border text-center">verified campaign</p>
-            </div> -->
+            <div class="text-xs flex m-auto" v-if="campaignId !== ''">
+                <p v-if="visible" class="py-1 px-5 rounded-full border text-center m-auto text-c-green border-c-green font-semibold">visible</p>
+                <p v-if="!visible" class="py-1 px-5 rounded-full border text-center m-auto text-c-env font-semibold">not visible</p>
+            </div>
 
             <div class="my-5">
                 <img :src="campaignLogo" alt="campaigns logo" class="w-32 m-auto">

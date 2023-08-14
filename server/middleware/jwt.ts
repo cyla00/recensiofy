@@ -16,13 +16,15 @@ export default defineEventHandler(async (event) => {
             '/api/users/jwt-check', // checks jwt on command
             '/api/users/delete', // deletes account, campaigns and reviews
             '/api/users/fetch-data', // fetches some user data
-            '/api/users/update-email', // modifies email
-            '/api/users/update-password', // modifies email
-            '/api/users/regen-api-key', // modifies email
-            '/api/users/fetch-payments', // modifies email
-            '/api/campaigns/create', // modifies email
-            '/api/campaigns/delete', // modifies email
-            '/api/campaigns/get-campaign', // modifies email
+            '/api/users/update-email', // updates email
+            '/api/users/update-password', // updates password
+            '/api/users/regen-api-key', // regens api key
+            '/api/users/fetch-payments', // gets all payments stripe
+            '/api/campaigns/create', // creates campaign
+            '/api/campaigns/delete', // deletes campaign
+            '/api/campaigns/get-campaign', // gets campaign data (private)
+            '/api/users/end-subscription', // ends subscription stripe
+            '/api/users/init-payment', // inits payment session stripe
 
         ]
 

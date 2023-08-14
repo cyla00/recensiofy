@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
         if(checkSub.subscriptions.total_count === 0){
             throw createError({
                 statusCode: 400,
-                statusMessage: 'Subscribe to create a campaign',
+                statusMessage: 'Subscribe to create or update your campaign',
             })
         }
 
