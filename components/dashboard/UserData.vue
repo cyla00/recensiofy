@@ -97,6 +97,7 @@ onBeforeMount(async () => {
         apiKey.value = 'not available'
         zone.value = 'not available'
         email.value = 'not available'
+        return
     })
 })
 

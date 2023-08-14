@@ -13,6 +13,7 @@ definePageMeta({
     layout: 'default',
     middleware: ['is-connected-check'],
 })
+
 </script>
 
 <template>

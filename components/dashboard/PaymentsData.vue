@@ -5,16 +5,20 @@ const ErrMsg = ref<string>('')
 const SuccMsg = ref<string>('')
 
 const loading = ref<boolean>(true)
+const subscribed = ref<boolean>()
 
 onBeforeMount(async () => {
+    
     await $fetch('/api/users/fetch-payments', {method: 'post', headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
     }}).then((res) => {
         console.log(res)
+        subscribed.value = res.subscribed
         loading.value = false
     }).catch((e) => {
         loading.value = false
     })
+    
 })
 
 
@@ -26,6 +30,11 @@ onBeforeMount(async () => {
     <div class="w-96 bg-c-light back-shadow rounded-xl p-7 text-c-dark max-xl:m-auto max-xl:w-4/5 h-full">
         <Popup v-model:Show="Show" v-model:ErrMsg="ErrMsg" v-model:SuccMsg="SuccMsg"/>
         <div>
+            
+            <div>
+                <p v-if="subscribed">it's subs</p>
+                <p v-if="!subscribed">it's NOT subs</p>
+            </div>
 
             <h1 class="font-semibold text-base mb-3 border-b-2">Payments history</h1>
 
