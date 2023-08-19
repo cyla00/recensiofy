@@ -42,7 +42,7 @@ const updateRate = (index) => {
 <template>
     <div class="flex my-3 text-base">
         <div class="flex flex-row text-c-light-grey">
-            <i v-for="i in 5" :key="i" class='bx bxs-star text-4xl max-md:text-4xl duration-200' @click="updateRate(i)"></i>
+            <i v-for="i in 5" :key="i" class='bx bxs-star text-3xl max-md:text-4xl duration-200' @click="updateRate(i)"></i>
         </div>
         <div class="my-auto ml-5">
             <p>{{ rating }}/5 <span class="ml-5 max-md:hidden text-c-blue font-bold" id="rateText">{{ ratingText }}</span></p>

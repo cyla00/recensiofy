@@ -39,7 +39,7 @@ export const CampaignSchema = new Schema({
 export const ReviewSchema = new Schema({
     id: String,
     campaignId: String,
-    reviewerId: String,
+    reviewerIP: String,
     title: String,
     description: String,
     videoPath: String,
