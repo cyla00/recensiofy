@@ -16,6 +16,8 @@ export default defineEventHandler(async (event) => {
     const env = useRuntimeConfig()
     const users = model('users', UserSchema) 
 
+    const IPcheckURL = `http://check.getipintel.net/check.php?ip=${body.ip}&format=json&flags=f&contact=seroktika@gmail.com`
+
     if(body.email === '' || !emailValidator(body.email)){
         throw createError({
             statusCode: 400,

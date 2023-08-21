@@ -7,13 +7,13 @@ const SuccMsg = ref<string>('')
 const loading = ref<boolean>(true)
 
 onBeforeMount(async () => {
-    await $fetch('/api/users/fetch-payments', {method: 'post', headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-    }}).then((res) => {
-        loading.value = false
-    }).catch((e) => {
-        loading.value = false
-    })
+    // await $fetch('/api/users/fetch-private-reviews', {method: 'post', headers: {
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`
+    // }}).then((res) => {
+    //     loading.value = false
+    // }).catch((e) => {
+    //     loading.value = false
+    // })
 })
 
 </script>

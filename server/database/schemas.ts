@@ -40,6 +40,7 @@ export const ReviewSchema = new Schema({
     id: String,
     campaignId: String,
     reviewerIP: String,
+    reviewerName: String,
     title: String,
     description: String,
     videoPath: String,

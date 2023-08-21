@@ -23,6 +23,7 @@ export default defineEventHandler(async (event) => {
                 location: campaign.location,
                 verifiedCampaign: campaign.verifiedCampaign,
                 description: campaign.description,
+                category: campaign.category,
             }
         }
     }catch(e){

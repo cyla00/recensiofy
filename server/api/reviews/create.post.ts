@@ -1,21 +1,28 @@
 import { model } from 'mongoose'
-import { UserSchema, CampaignSchema, ReviewSchema } from '../../database/schemas.ts'
-import jwt_decode from 'jwt-decode'
+import { CampaignSchema, ReviewSchema } from '../../database/schemas.ts'
 import { v4 as uuidv4 } from 'uuid'
+import axios from 'axios'
 
 export default defineEventHandler(async (event) => {
 
     const body = await readBody(event)
-    const users = model('users', UserSchema)
     const reviews = model('reviews', ReviewSchema)
     const campaigns = model('campaigns', CampaignSchema)
-    const token = jwt_decode(event.node.req.headers.authorization.split(' ')[1])
     const date = new Date()
+
+    const IPcheckURL = `http://check.getipintel.net/check.php?ip=${body.ip}&format=json&flags=f&contact=seroktika@gmail.com`
 
     if(body.rate === 0){
         throw createError({
             statusCode: 400,
             statusMessage: 'Select a rating before submitting',
+        })
+    }
+
+    if(body.reviewerName === ''){
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'Provide a name or username before submitting',
         })
     }
 
@@ -25,21 +32,34 @@ export default defineEventHandler(async (event) => {
             statusMessage: 'Provide a title before submitting',
         })
     }
+
+    if(body.description === ''){
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'Provide a brief description before submitting',
+        })
+    }
+
+    await axios.post(IPcheckURL).then((res) => {
+        if(res.data.result !== '0'){
+            throw createError({
+                statusCode: 401,
+                statusMessage: 'Proxy or VPN usage has been detected',
+            })
+        }
+    }).catch((e) => {
+        throw createError({
+            statusCode: 401,
+            statusMessage: e.statusMessage || 'An error occurred, please retry later abub',
+        })
+    })
     
     try{
-        const checkReviewer = await reviews.findOne({reviewerId: token.id, campaignId: body.campaignId})
-        const campaginCheck = await campaigns.findOne({userId: token.id})
+        const checkReviewer = await reviews.findOne({reviewerIP: body.ip, campaignId: body.campaignId})
         if(checkReviewer){
             throw createError({
                 statusCode: 403,
                 statusMessage: 'You already have submitted a review for this campaign',
-            })
-        }
-        
-        if(campaginCheck.id === body.campaignId){
-            throw createError({
-                statusCode: 403,
-                statusMessage: `You can't review your own campaign`,
             })
         }
 
@@ -55,7 +75,8 @@ export default defineEventHandler(async (event) => {
         await reviews.create({
             id: uuidv4(),
             campaignId: body.campaignId, 
-            reviewerIP: token.id,
+            reviewerIP: body.ip,
+            reviewerName: body.reviewerName,
             title: body.title,
             description: body.description,
             videoPath: '',

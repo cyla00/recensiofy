@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@webzlodimir/vue-avatar": "^0.0.8",
+    "axios": "^1.4.0",
     "base-64": "^1.0.0",
     "crypto-js": "^4.1.1",
     "formidable": "^3.5.0",

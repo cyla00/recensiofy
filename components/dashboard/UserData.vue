@@ -10,10 +10,12 @@ const showBlur = ref<boolean>(true)
 const newEmail = ref<string>('')
 
 const apiKey = ref<string>('')
+const evaluateUrl = ref<string>('')
 const zone = ref<string>('')
 const email = ref<string>('')
 
 const refKey = ref('')
+const refEvaluateUrl = ref('')
 
 const blur = () => {
     showBlur.value = !showBlur.value
@@ -21,6 +23,12 @@ const blur = () => {
 
 const copyKey = async () => {
     await navigator.clipboard.writeText(refKey.value.value)
+    Show.value = true
+    SuccMsg.value = 'Copied to clipboard'
+}
+
+const copyEvaluateUrl = async () => {
+    await navigator.clipboard.writeText(refEvaluateUrl.value.value)
     Show.value = true
     SuccMsg.value = 'Copied to clipboard'
 }
@@ -93,6 +101,7 @@ onBeforeMount(async () => {
         apiKey.value = res.apiKey
         zone.value = res.timezone
         email.value = res.email
+        evaluateUrl.value = res.evaluateUrl
     }).catch((e) => {
         apiKey.value = 'not available'
         zone.value = 'not available'
@@ -105,7 +114,7 @@ onBeforeMount(async () => {
 
 <template>
 
-    <div class="w-96 bg-c-light back-shadow rounded-xl p-7 text-c-dark m-auto max-xl:m-auto max-xl:w-4/5 h-[820px]">
+    <div class="w-96 bg-c-light back-shadow rounded-xl p-7 text-c-dark m-auto max-xl:m-auto max-xl:w-4/5 h-[820px] overflow-y-scroll">
         <Popup v-model:Show="Show" v-model:ErrMsg="ErrMsg" v-model:SuccMsg="SuccMsg"/>
         <div>
 
@@ -117,8 +126,8 @@ onBeforeMount(async () => {
 
             <h1 class="font-semibold text-base mb-3">API key <span class="text-c-light-grey text-xs">(keep it secret)</span></h1>
 
-            <div class="flex">
-                <div class="border rounded-l-md">
+            <div class="flex mb-5">
+                <div class="border rounded-l-md w-full">
                     <input
                         class="py-2 px-5 w-full truncate duration-300 outline-none" type="text" v-model="apiKey" spellcheck="false" ref="refKey" readonly="true" :class="{'blur-text': showBlur}">
                 </div>
@@ -126,6 +135,18 @@ onBeforeMount(async () => {
                 <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="blur" title="hide/show"><i class='bx bx-low-vision'></i></button>
                 <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="copyKey" title="copy key"><i class='bx bx-copy-alt'></i></button>
                 <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300 rounded-r-xl" @click="regenApiKey" title="regenerate key"><i class='bx bx-revision'></i></button>
+
+            </div>
+
+            <h1 class="font-semibold text-base mb-3">Review form URL <span class="text-c-light-grey text-xs">(share it to collect reviews)</span></h1>
+
+            <div class="flex">
+                <div class="border rounded-l-md w-full">
+                    <input
+                        class="py-2 px-5 w-full truncate duration-300 outline-none" type="text" v-model="evaluateUrl" spellcheck="false" ref="refEvaluateUrl" readonly="true">
+                </div>
+                
+                <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300 rounded-r-xl" @click="copyEvaluateUrl" title="copy key"><i class='bx bx-copy-alt'></i></button>
 
             </div>
         </div>

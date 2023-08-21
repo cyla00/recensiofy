@@ -23,7 +23,7 @@ const checkout = async () => {
     })
 
     const body = {
-        email: email.value,
+        email: email.value, 
         password: password.value,
         repeatPass: repeat_password.value,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
