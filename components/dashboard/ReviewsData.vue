@@ -7,13 +7,15 @@ const SuccMsg = ref<string>('')
 const loading = ref<boolean>(true)
 
 onBeforeMount(async () => {
-    // await $fetch('/api/users/fetch-private-reviews', {method: 'post', headers: {
-    //     Authorization: `Bearer ${localStorage.getItem('token')}`
-    // }}).then((res) => {
-    //     loading.value = false
-    // }).catch((e) => {
-    //     loading.value = false
-    // })
+    await $fetch('/api/reviews/fetch-private', {method: 'post', headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+    }}).then((res) => {
+        loading.value = false
+        console.log(res);
+        
+    }).catch((e) => {
+        loading.value = false
+    })
 })
 
 </script>
@@ -25,6 +27,9 @@ onBeforeMount(async () => {
 
         <h1 class="font-semibold text-base mb-3 max-md:text-center">Latest reviews</h1>
 
+        <div class="flex justify-center" v-if="loading">
+            <i class='bx bx-loader-alt bx-spin bx-lg'></i>
+        </div>
     </div>
 
 </template>

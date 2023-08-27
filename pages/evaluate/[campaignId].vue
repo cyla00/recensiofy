@@ -71,6 +71,9 @@ const submitReview = async () => {
     await $fetch('/api/reviews/create', {method: 'post', body}).then((res) => {
         Show.value = true
         SuccMsg.value = res.SuccMsg
+        setTimeout(() => {
+            window.location.reload()
+        }, 2500)
     }).catch((e) => {
         Show.value = true
         ErrMsg.value = e.statusMessage

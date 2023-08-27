@@ -103,7 +103,7 @@ onBeforeMount(async () => {
         email.value = res.email
         evaluateUrl.value = res.evaluateUrl
     }).catch((e) => {
-        apiKey.value = 'not available'
+        apiKey.value = 'create a campaign!'
         zone.value = 'not available'
         email.value = 'not available'
         return
@@ -129,7 +129,9 @@ onBeforeMount(async () => {
             <div class="flex mb-5">
                 <div class="border rounded-l-md w-full">
                     <input
-                        class="py-2 px-5 w-full truncate duration-300 outline-none" type="text" v-model="apiKey" spellcheck="false" ref="refKey" readonly="true" :class="{'blur-text': showBlur}">
+                        class="py-2 px-5 w-full truncate duration-300 outline-none" type="text" v-model="apiKey" spellcheck="false" ref="refKey" readonly="true" 
+                        :class="{'blur-text': showBlur, 'create': apiKey === 'create a campaign!'}"
+                        >
                 </div>
                 
                 <button class="py-1 px-2 bg-c-green text-c-light desktop-btn duration-300" @click="blur" title="hide/show"><i class='bx bx-low-vision'></i></button>
@@ -231,5 +233,9 @@ onBeforeMount(async () => {
 <style scoped>
 .blur-text{
     filter: blur(3px);
+}
+
+.create{
+    color: #9A9A9A;
 }
 </style>
