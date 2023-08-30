@@ -52,10 +52,10 @@ const navDash = () => {
 <template>
     <header class="font-bold py-2 px-20 max-xl:px-10 flex flex-row justify-center border-b border-b-c-blight max-md:hidden text-c-dark text-base">
         <div class="my-auto">
-            <NuxtLink to="/"><img class="w-20 desktop-btn duration-300" src="~/assets/logo-dark.png" alt=""></NuxtLink>
+            <NuxtLink to="/"><img class="w-14 desktop-btn duration-300" src="~/assets/logo-dark.png" alt=""></NuxtLink>
         </div>
         <div class="m-auto"></div>
-        <div class="my-auto">
+        <div class="my-auto text-sm">
             <NuxtLink class="mr-5 m-auto capitalize desktop-btn duration-300" to="/">home</NuxtLink>
             <NuxtLink class="mr-5 m-auto capitalize desktop-btn duration-300" to="/docs">Usage</NuxtLink>
             <NuxtLink class="mr-5 duration-300 desktop-btn capitalize font-bold py-2 px-10 bg-c-blue rounded-full text-c-light" to="/connection" v-if="!isLogged"> Connect</NuxtLink>

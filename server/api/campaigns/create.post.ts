@@ -94,7 +94,7 @@ export default defineEventHandler(async (event) => {
         
 
         return{
-            SuccMsg: 'Campaign successfully created'
+            SuccMsg: 'Campaign successfully updated'
         }
 
     }catch(e){
