@@ -25,6 +25,7 @@ export default defineEventHandler(async (event) => {
             '/api/campaigns/get-campaign', // gets campaign data (private)
             '/api/users/end-subscription', // ends subscription stripe
             '/api/users/init-payment', // inits payment session stripe
+            'api/reviews/fetch-private', // fetch the last 5 reviews
 
         ]
 
