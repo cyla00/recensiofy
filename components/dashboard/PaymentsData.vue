@@ -57,7 +57,7 @@ const subscribe = async () => {
 
             <h1 class="font-semibold text-base mb-3 max-md:text-center">Payments history</h1>
 
-            <div v-if="!loading" v-for="i in paymentsHistory.slice().reverse()" :key="i" class="text-xs flex my-2 m-auto border-b py-2 font-semibold max-md:flex-col max-md:text-center">
+            <div v-if="!loading" v-for="i in paymentsHistory.slice().reverse()" class="text-xs flex my-2 m-auto border-b py-2 font-semibold max-md:flex-col max-md:text-center">
                 <p class="px-5 text-c-light rounded-full my-auto max-md:mx-auto"><i class='bx bxs-check-circle text-c-green bx-xs'></i></p>
                 <p class="my-auto bg-clip-text text-transparent bg-gradient-to-bl from-c-blue to-c-green">
                     <span v-if="i.card_type === 'visa'"><i class='bx bxl-visa bx-sm'></i></span> 

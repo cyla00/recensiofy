@@ -75,6 +75,7 @@ export default defineNuxtConfig({
         EMAIL_CLIENT_PASS: process.env.EMAIL_CLIENT_PASS,
         STRIPE_KEY: process.env.STRIPE_KEY,
         STRIPE_PRODUCT_SUB_ID: process.env.STRIPE_PRODUCT_SUB_ID,
+        DOMAIN_NAME: process.env.DOMAIN_NAME,
 
         public: {
             DISCORD_SUPPORT_SERVER: process.env.DISCORD_SUPPORT_SERVER
