@@ -9,8 +9,8 @@ export default defineEventHandler(async (event) => {
     const reviews = model('reviews', ReviewSchema)
     const campaigns = model('campaigns', CampaignSchema)
     const api_key = event.node.req.headers.authorization.split(' ')[1]
-    const IP = event.node.req.headers['x-forwarded-for'].split('f:')[1]
-    // const IP = '89.226.166.176'
+    // const IP = event.node.req.headers['x-forwarded-for'].split('f:')[1]
+    const IP = '89.226.166.176'
     const body = await readBody(event)
     const date = new Date()
     
@@ -19,6 +19,8 @@ export default defineEventHandler(async (event) => {
 
     try{
         const ApiKeyCheck = await users.findOne({apiKey: api_key})
+        const campaign = await campaigns.findOne({userId: ApiKeyCheck.id})
+        
         if(!ApiKeyCheck){
             throw createError({
                 statusCode: 401,
@@ -68,7 +70,7 @@ export default defineEventHandler(async (event) => {
             })
         })
 
-        const checkReviewer = await reviews.findOne({reviewerIP: IP, campaignId: body.campaignId})
+        const checkReviewer = await reviews.findOne({reviewerIP: IP, campaignId: campaign.id})
         if(checkReviewer){
             throw createError({
                 statusCode: 403,
@@ -85,9 +87,11 @@ export default defineEventHandler(async (event) => {
         if(body.rate === 4) ratingImg = `http://${host}/rating/star4.png`
         if(body.rate === 5) ratingImg = `http://${host}/rating/star5.png`
         
+        
+
         await reviews.create({
             id: uuidv4(),
-            campaignId: body.campaignId, 
+            campaignId: campaign.id, 
             reviewerIP: IP,
             reviewerName: body.reviewerName,
             title: body.title,
@@ -101,7 +105,7 @@ export default defineEventHandler(async (event) => {
         })
 
         const rates: Array<number> = []
-        const fetchReviews = await reviews.find({campaignId: body.campaignId})
+        const fetchReviews = await reviews.find({campaignId: campaign.id})
 
         await fetchReviews.forEach((review) => {
             rates.push(Number(review.rating))
@@ -109,8 +113,8 @@ export default defineEventHandler(async (event) => {
 
         const sum = rates.reduce((partialSum, a) => partialSum + a, 0)
         const average =  Math.round((sum / fetchReviews.length) * 10) / 10
-
-        await campaigns.updateOne({id: body.campaignId}, {$set: {averageRating: average, modifiedAt: date.toLocaleString("us-US")}})
+        
+        await campaigns.updateOne({id: campaign.id}, {$set: {averageRating: average, modifiedAt: date.toLocaleString("us-US")}})
 
         return{
             SuccMsg: 'Review successfully submitted'

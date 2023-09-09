@@ -20,7 +20,6 @@ html {
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
 	font-family: Inter;
-	
 }
 body{
     margin: 0;
