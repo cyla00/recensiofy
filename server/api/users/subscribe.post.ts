@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
     }
 
     try{
-        const host = await event.node.req.headers.host
+        const host = env.DOMAIN_NAME
         const retrievePrice = await stripe.products.retrieve(env.STRIPE_PRODUCT_SUB_ID)
 
         const userCheck = await users.findOne({email: body.email, password: sha256toBase64(body.password)})
@@ -109,9 +109,11 @@ export default defineEventHandler(async (event) => {
         }
     }
     catch(e){
+        console.log(e);
+        
         throw createError({
             statusCode: 400,
-            statusMessage: e.statusMessage || `Account exists, connect`,
+            statusMessage: e.statusMessage || `An error occurred please retry later`,
         })
     }
 })

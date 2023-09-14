@@ -52,7 +52,7 @@ const navDash = () => {
 <template>
     <header class="font-bold py-2 px-20 max-xl:px-10 flex flex-row justify-center border-b border-b-c-blight max-md:hidden text-c-dark text-base">
         <div class="my-auto">
-            <NuxtLink to="/"><img class="w-14 desktop-btn duration-300" src="~/assets/logo-dark.png" alt=""></NuxtLink>
+            <NuxtLink to="/"><img class="w-14 desktop-btn duration-300" src="~/public/logo-dark.png" alt=""></NuxtLink>
         </div>
         <div class="m-auto"></div>
         <div class="my-auto text-sm">
@@ -79,7 +79,7 @@ const navDash = () => {
 
                         <div class="flex flex-col">
                             <div class="my-auto">
-                                <a href="/"><img class="w-20 m-auto" src="~/assets/logo-dark.png" alt=""></a>
+                                <a href="/"><img class="w-20 m-auto" src="~/public/logo-dark.png" alt=""></a>
                             </div>
                             <div class="m-auto flex flex-col text-center mt-20">
                                 <a class="m-auto mx-5 capitalize my-5 font-semibold" href="/">home</a>

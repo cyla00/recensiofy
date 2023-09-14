@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
     const reviews = model('reviews', ReviewSchema)
     const campaigns = model('campaigns', CampaignSchema)
     const date = new Date()
+    const env = useRuntimeConfig()
 
     const IPcheckURL = `http://check.getipintel.net/check.php?ip=${body.ip}&format=json&flags=f&contact=seroktika@gmail.com`
 
@@ -78,8 +79,8 @@ export default defineEventHandler(async (event) => {
         }
 
         let ratingImg:string = ''
-        const host = await event.node.req.headers.host
-        
+        const host = env.DOMAIN_NAME
+
         if(body.rate === 1) ratingImg = `http://${host}/rating/star1.png`
         if(body.rate === 2) ratingImg = `http://${host}/rating/star2.png`
         if(body.rate === 3) ratingImg = `http://${host}/rating/star3.png`

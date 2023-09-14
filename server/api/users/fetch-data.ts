@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
             email: user.email,
             timezone: user.timezone,
             apiKey: user.apiKey,
-            evaluateUrl: `http://${host}/evaluate/${campaign.id}`
+            evaluateUrl: `https://${host}/evaluate/${campaign.id}`
         }
 
     }catch(e){

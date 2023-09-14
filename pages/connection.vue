@@ -90,7 +90,7 @@ const connection = async () => {
 
             <div class="w-96 max-xl:w-4/5 m-auto ml-5 max-xl:mx-auto">
                 <div class="my-5 max-xl:hidden">
-                    <NuxtLink to="/"><img class="w-24 max-xl:m-auto desktop-btn duration-300" src="~/assets/logo-dark.png" alt=""></NuxtLink>
+                    <NuxtLink to="/"><img class="w-24 max-xl:m-auto desktop-btn duration-300" src="~/public/logo-dark.png" alt=""></NuxtLink>
                 </div>
                     
                 <div class="text-c-dark my-10 max-md:my-3">
