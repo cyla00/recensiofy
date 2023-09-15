@@ -69,7 +69,7 @@ export default defineNuxtConfig({
     },
     nitro: {
         plugins: [
-            '~/server/plugins/dbconnection.ts',
+            '~/plugins/dbconnection.server.ts',
         ]
     }
 })

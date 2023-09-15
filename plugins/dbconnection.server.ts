@@ -1,6 +1,7 @@
+import { defineNuxtPlugin } from '#app'
 import {mongoose} from 'mongoose'
 
-export default defineNitroPlugin(async (nitroApp) => {
+export default defineNuxtPlugin(async (nitroApp) => {
     const env = useRuntimeConfig()
     
     try{
